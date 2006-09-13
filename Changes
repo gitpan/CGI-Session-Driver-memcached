@@ -1,4 +1,7 @@
 Revision history for Perl extension CGI::Session::Driver::memcached.
 
+0.02  Wed Sep 13 13:09:21 2006
+        - Fixed some tests failure if memcached server is dead.
+
 0.01  Tue Aug 15 00:15:42 2006
         - The first release

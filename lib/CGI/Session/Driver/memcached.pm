@@ -8,7 +8,7 @@ use Carp qw(croak);
 use CGI::Session::Driver;
 
 @CGI::Session::Driver::memcached::ISA = ( "CGI::Session::Driver" );
-$CGI::Session::Driver::memcached::VERSION = "0.01";
+$CGI::Session::Driver::memcached::VERSION = "0.02";
 
 sub init {
     my $self = shift;
