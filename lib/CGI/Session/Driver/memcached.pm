@@ -1,6 +1,6 @@
 package CGI::Session::Driver::memcached;
 
-# $Id$
+# $Id: memcached.pm 22478 2008-11-01 01:43:43Z oinume $
 
 use strict;
 
@@ -8,7 +8,7 @@ use Carp qw(croak);
 use CGI::Session::Driver;
 
 @CGI::Session::Driver::memcached::ISA = ( "CGI::Session::Driver" );
-$CGI::Session::Driver::memcached::VERSION = "0.02";
+our $VERSION = "0.03";
 
 sub init {
     my $self = shift;
@@ -88,7 +88,7 @@ CGI::Session::Driver::memcached - CGI::Session driver for memcached
         debug   => 0,
         compress_threshold => 10_000,
     });
-    $s = new CGI::Session( "driver:memcached", $sid, { Memcached => $memcached } );
+    $s = CGI::Session( "driver:memcached", $sid, { Memcached => $memcached } )->new;
 
 =head1 DESCRIPTION
 
@@ -104,7 +104,7 @@ The only supported driver argument is 'Memcached'. It's an instance of L<Cache::
 
 =item L<CGI::Session>
 
-=item L<Cache::Memcached>
+=item L<Cache::Memcached> or L<Cache::Memcached::Fast>
 
 =back
 
@@ -124,7 +124,7 @@ Kazuhiro Oinuma <oinume@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2005 - 2006 Kazuhiro Oinuma <oinume@cpan.org>. All rights reserved. This library is free software. You can modify and or distribute it under the same terms as Perl itself.
+Copyright (C) 2005 - 2008 Kazuhiro Oinuma <oinume@cpan.org>. All rights reserved. This library is free software. You can modify and or distribute it under the same terms as Perl itself.
 
 =cut
 

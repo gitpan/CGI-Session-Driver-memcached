@@ -2,14 +2,31 @@
 
 use strict;
 use diagnostics;
+use Test::More;
+use IO::Socket::INET;
+use FindBin qw($Bin);
+use lib "$Bin/../lib";
 
-my @servers = ('localhost:11211');
-if ($ENV{CGISESS_MEMCACHED_SERVERS}) {
-    @servers = split ':', $ENV{CGISESS_MEMCACHED_SERVERS};
+my $server = '127.0.0.1:11211';
+my @servers = ();
+if (exists $ENV{CGISESS_MEMCACHED_SERVERS}) {
+    @servers = split ' ', $ENV{CGISESS_MEMCACHED_SERVERS};
+}
+else {
+    @servers = ($server);
 }
 
-use Test::More;
-use CGI::Session::Test::Default;
+for my $s (@servers) {
+    my $sock = IO::Socket::INET->new(
+        PeerAddr => $s,
+        Timeout => 2,
+    );
+    if (!$sock) {
+        plan(skip_all => "No memcached instance running at $s\n");
+        exit 0;
+    }
+}
+
 
 for (qw(Cache::Memcached)) {
     eval "require $_";
@@ -19,6 +36,7 @@ for (qw(Cache::Memcached)) {
     }
 }
 
+use CGI::Session::Test::Default;
 my $memcached = Cache::Memcached->new({
     servers => \@servers,
     debug   => 1,
@@ -31,7 +49,6 @@ unless (defined $memcached->get($TEST_KEY)) {
     exit 0;
 }
 
-require CGI::Session::Driver::memcached;
 my $t = CGI::Session::Test::Default->new(
     dsn => "dr:memcached",
     args=> { Memcached => $memcached }

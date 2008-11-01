@@ -17,3 +17,5 @@ docs
 \.r\d+$
 .*sessiondata.*
 .*cgisess.*
+.shipit
+
