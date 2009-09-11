@@ -18,9 +18,9 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
   CGI::Session
-  Cache::Memcached
+  Cache::Memcached (or Cache::Memcached::Fast)
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2005 - 2006 Kazuhiro Oinuma <oinume@cpan.org>. All rights reserved. This library is free software. You can modify and or distribute it under the same terms as Perl itself.
+Copyright (C) 2005 - 2009 Kazuhiro Oinuma <oinume@cpan.org>. All rights reserved. This library is free software. You can modify and or distribute it under the same terms as Perl itself.
 

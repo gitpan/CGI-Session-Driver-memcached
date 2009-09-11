@@ -1,6 +1,6 @@
 package CGI::Session::Driver::memcached;
 
-# $Id: memcached.pm 22478 2008-11-01 01:43:43Z oinume $
+# $Id$
 
 use strict;
 
@@ -8,7 +8,7 @@ use Carp qw(croak);
 use CGI::Session::Driver;
 
 @CGI::Session::Driver::memcached::ISA = ( "CGI::Session::Driver" );
-our $VERSION = "0.03";
+our $VERSION = "0.04";
 
 sub init {
     my $self = shift;
@@ -83,12 +83,16 @@ CGI::Session::Driver::memcached - CGI::Session driver for memcached
 
 =head1 SYNOPSIS
 
-    $memcached = Cache::Memcached->new({
+    use strict;
+    use warnings;
+    use Cache::Memcached; # or Cache::Memcached::Fast
+    
+    my $memcached = Cache::Memcached->new({
         servers => [ 'localhost:11211' ],
         debug   => 0,
         compress_threshold => 10_000,
     });
-    $s = CGI::Session( "driver:memcached", $sid, { Memcached => $memcached } )->new;
+    my $session = CGI::Session->new( "driver:memcached", $sid, { Memcached => $memcached } );
 
 =head1 DESCRIPTION
 
@@ -122,9 +126,15 @@ But I don't know how to get all objects store in memcached.
 
 Kazuhiro Oinuma <oinume@cpan.org>
 
+=head1 REPOSITORY
+
+  git clone git://github.com/oinume/p5-cgi-session-driver-memcached
+
+=cut
+
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2005 - 2008 Kazuhiro Oinuma <oinume@cpan.org>. All rights reserved. This library is free software. You can modify and or distribute it under the same terms as Perl itself.
+Copyright (C) 2005 - 2009 Kazuhiro Oinuma <oinume@cpan.org>. All rights reserved. This library is free software. You can modify and or distribute it under the same terms as Perl itself.
 
 =cut
 

@@ -27,17 +27,20 @@ for my $s (@servers) {
     }
 }
 
-
-for (qw(Cache::Memcached)) {
+my $client = '';
+for (qw(Cache::Memcached Cache::Memcached::Fast)) {
     eval "require $_";
-    if ($@) {
-        plan(skip_all=>"$_ is NOT available");
-        exit 0;
+    unless ($@) {
+        $client = $_;
     }
+}
+unless ($client) {
+    plan(skip_all => "Cache::Memcached or Cache::Memcached::Fast is NOT available");
+    exit 0;
 }
 
 use CGI::Session::Test::Default;
-my $memcached = Cache::Memcached->new({
+my $memcached = $client->new({
     servers => \@servers,
     debug   => 1,
 });

@@ -16,7 +16,7 @@ my %prereq_pm = (
     'Test::More'         => undef,
 );
 if ($has_fast) {
-    print "[info] You have Cache::Memcached::Fast, so CGI::Session::Driver::memcached may work very fast!!\n";
+    print "[info] You have Cache::Memcached::Fast, so CGI::Session::Driver::memcached may work faster.\n";
 }
 else {
     print "[info] If you install Cache::Memcached::Fast, it makes CGI::Session::Driver::memcached faster.\n";
